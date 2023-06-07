@@ -1,4 +1,4 @@
-import Tag from "../../models/tag";
+import Tag from "../../models/tag.js";
 import asyncHandler from "express-async-handler";
 
 // @desc    Create a tag

@@ -1,7 +1,7 @@
 import express from "express";
-import getAllTag from "../controllers/tag/getAllTag";
-import createTag from "../controllers/tag/createTag";
-import updateTag from "../controllers/tag/updateTag";
+import getAllTag from "../controllers/tag/getAllTag.js";
+import createTag from "../controllers/tag/createTag.js";
+import updateTag from "../controllers/tag/updateTag.js";
 import checkAuth from "../middleware/checkauthmiddleware.js";
 import role from "../middleware/roleMiddleware.js"
 

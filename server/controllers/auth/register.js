@@ -6,7 +6,7 @@ import cookieToken from "../../utils/cookieToken.js";
 // $-path    POST /api/v1/auth/register
 // $-access  Public
 const registerUser = asyncHandler(async (req, res) => {
-  const { email, username, fullname, password, passwordConfirm } = req.body;
+  const { email, username, password, passwordConfirm } = req.body;
 
   if (!email) {
     res.status(400);

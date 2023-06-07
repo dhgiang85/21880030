@@ -1,6 +1,5 @@
-// get all question
-import Question from "../../models/question";
-import asyncHandler from "../../middleware/async";
+import Question from "../../models/question.js";
+import asyncHandler from "express-async-handler";
 
 const getAllQuestion = asyncHandler(async (req, res) => {
   const pageSize = Number(req.query.pageSize) || 10;
@@ -21,10 +20,7 @@ const getAllQuestion = asyncHandler(async (req, res) => {
     .sort({ createdAt: -1 })
     .limit(pageSize)
     .skip(pageSize * (page - 1))
-    .populate({
-      path: "owner",
-      select: "name",
-    });
+    .populate("owner tags");
     res.status(200).json({
         success: true,
         count,

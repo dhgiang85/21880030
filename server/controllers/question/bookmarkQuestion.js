@@ -1,6 +1,6 @@
 // bookmark a question
 
-import asyncHandler from "../../middleware/async.js";
+import asyncHandler from "express-async-handler";
 import Question from "../../models/question.js";
 
 // @desc    bookmark a question
@@ -40,7 +40,8 @@ const bookmarkQuestion = asyncHandler(async (req, res) => {
     }
     res.status(200).json({
         success: true,
-        data: bookmarkedQuestion,
+        message: "Question bookmarked in your profile",
+        question: bookmarkedQuestion,
     });
 
 });

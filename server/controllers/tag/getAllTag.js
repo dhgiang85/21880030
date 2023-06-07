@@ -1,4 +1,4 @@
-import Tag from "../../models/tagModel.js";
+import Tag from "../../models/tag.js";
 import asyncHandler from "express-async-handler";
 
 // @desc    Get all tags

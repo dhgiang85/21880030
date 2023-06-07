@@ -1,5 +1,5 @@
 // tags like stackoverflow
-
+import mongoose from "mongoose";
 const { Schema } = mongoose;
 
 const tagSchema = new Schema({

@@ -36,3 +36,6 @@ const createAnswer = asyncHandler(async (req, res) => {
     data: newAnswer,
   });
 });
+
+
+export default createAnswer;

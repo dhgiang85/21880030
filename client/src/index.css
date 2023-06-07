@@ -1,3 +1,101 @@
 @tailwind base;
+:root {
+  --primary: #0ec3be;
+  --secondary: #eeeeee;
+}
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--secondary) var(--primary);
+}
+
+/* Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 10px;
+}
+
+*::-webkit-scrollbar-track {
+  background: var(--primary);
+  /* border-radius: 5px; */
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: var(--secondary);
+  border-radius: 14px;
+  border: 3px solid var(--primary);
+}
 @tailwind components;
+
 @tailwind utilities;
+@layer base {
+  header {
+    height: 48px;
+  }
+  footer {
+    height: 165px;
+  }
+  body {
+    @apply font-roboto relative overflow-y-scroll text-neutral-600;
+  }
+  h2 {
+    @apply text-2xl font-bold text-gray-900;
+  }
+  input,
+  a,
+  button,
+  textarea {
+    @apply outline-none;
+  }
+}
+
+@layer components {
+  .container {
+    @apply mx-auto max-w-7xl px-4 sm:px-2;
+  }
+  .btn-secondary {
+    @apply py-1 px-2 bg-secondary hover:bg-quaternary rounded text-tertiary border border-tertiary;
+  }
+  .btn-primary {
+    @apply py-1 px-2 bg-primary hover:bg-tertiary rounded text-secondary border border-primary;
+  }
+
+  .btn-filter {
+    @apply py-1 px-2 bg-secondary hover:bg-quaternary text-tertiary border border-tertiary;
+  }
+
+  .item-sidebar {
+    @apply flex items-center  w-full h-10 text-neutral-600 hover:text-neutral-800 space-x-2 transition-all px-2;
+  }
+  .active {
+    @apply bg-slate-200 font-semibold border-r-4 border-cyan-600 text-neutral-900;
+  }
+  .input-error {
+    @apply text-red-500 text-xs italic pl-4 pt-1;
+  }
+  .input-box {
+    @apply w-full block border-gray-300 px-4 py-3 text-gray-600 text-sm rounded focus:ring-0 focus:border-primary placeholder-gray-400;
+  }
+  .input-error {
+    @apply text-red-500 text-xs italic pl-4 pt-1;
+  }
+  /* allign pagination to right */
+  .pagination {
+    @apply flex items-center sm:flex-row sm:space-y-0 space-y-2  flex-col;
+  }
+  .pagination ul {
+    @apply flex items-center space-x-1;
+  }
+  .pagination li {
+    @apply border border-cyan-400;
+  }
+  .pagination a {
+    @apply hover:bg-secondary hover:text-white py-1 px-2 inline-block text-sm transition-all;
+  }
+  .pagination a:last-child {
+    @apply border-r-0;
+  }
+  .pagination .active-page {
+    @apply bg-secondary text-white cursor-auto;
+  }
+
+}
