@@ -1,3 +1,4 @@
+import moment from "moment";
 import React from "react";
 import { Link } from "react-router-dom";
 const Question = ({ question }) => {
@@ -12,16 +13,28 @@ const Question = ({ question }) => {
     viewNumber,
     voteDown,
     voteUp,
+    isSolved,
   } = question;
   return (
     <div className="flex p-4 border-b max-w-4xl">
-      <div className="w-28 mr-4 shrink-0">
-        <div className="space-y-2 text-right text-sm text-neutral-500 p-1">
-          <p>{voteDown.length + voteUp.length} votes</p>
-          <p>{answers.length} answers</p>
-          <p>{viewNumber} views</p>
+     
+        <div className="w-28 shrink-0 mr-4 ">
+          <div className="space-y-2 text-sm text-neutral-500 p-1 text-right">
+            <p>{voteDown.length + voteUp.length} votes</p>
+            <p
+              className={
+                answers.length > 0
+                  ? `border rounded border-green-800 text-green-800 p-1 inline-block ${isSolved ? "bg-green-800 text-white" : ""}`
+                  : ""
+              }
+            >
+              {answers.length} answers
+            </p>
+            <p>{viewNumber} views</p>
+          </div>
         </div>
-      </div>
+      
+
       <div className="flex-grow space-y-2">
         <Link
           to={`/question/${_id}`}
@@ -61,7 +74,8 @@ const Question = ({ question }) => {
               {owner.username}
             </Link>
             <p className="text-sm text-neutral-500">
-              asked {new Date(createdAt).toLocaleDateString()}
+              asked {moment(createdAt).fromNow()}
+              
             </p>
           </div>
         </div>

@@ -27,7 +27,7 @@ const resetPasswordRequest = asyncHandler(async (req, res) => {
 
   await existingUser.save({ validateBeforeSave: false });
 
-  const emailLink = `${domainURL}/auth/reset_password/${forgotToken}`;
+  const emailLink = `${domainURL}/user/reset_password/${forgotToken}`;
 
   const payload = {
     name: existingUser.username,
@@ -43,7 +43,7 @@ const resetPasswordRequest = asyncHandler(async (req, res) => {
     console.log(`${domainURL}/reset_password/${forgotToken}`);
   res.status(200).json({
     success: true,
-    message: `Hey ${existingUser.fullname}, an email has been sent to your account with the password reset link`,
+    message: `Hey ${existingUser.username}, an email has been sent to your account with the password reset link`,
   });
 });
 

@@ -1,6 +1,6 @@
-import Answer from "../../models/answer";
-import Question from "../../models/question";
-import asyncHandler from "../../middleware/async";
+import Answer from "../../models/answer.js";
+import Question from "../../models/question.js";
+import asyncHandler from "express-async-handler";
 
 // @desc    Create a answer for question
 // @route   POST /api/v1/question/:id/answer
@@ -15,7 +15,9 @@ const createAnswer = asyncHandler(async (req, res) => {
     throw new Error("please enter content");
   }
   // check exist question
-  const existQuestion = await Question.findById(id);
+  const existQuestion = await Question.findById(id).populate({
+    path: "owner tags answers"
+  });
   if (!existQuestion) {
     res.status(400);
     throw new Error("Question not found");
@@ -31,9 +33,14 @@ const createAnswer = asyncHandler(async (req, res) => {
     res.status(400);
     throw new Error("Answer failed");
   }
+  // add answer to question
+  existQuestion.answers.push(newAnswer._id);
+  const updatedQuestion =  await existQuestion.save();
+
   res.status(200).json({
     success: true,
-    data: newAnswer,
+    message: "Answer created",
+    question: updatedQuestion,
   });
 });
 

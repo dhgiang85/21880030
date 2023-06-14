@@ -1,5 +1,5 @@
-import Question from "../../models/question";
-import asyncHandler from "../../middleware/async";
+import Question from "../../models/question.js";
+import asyncHandler from "express-async-handler";
 
 // @desc    update a question
 // @route   PATCH /api/v1/question/:id

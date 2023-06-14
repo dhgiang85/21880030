@@ -12,7 +12,7 @@ const bookmarkQuestion = asyncHandler(async (req, res) => {
     const userId = req.user._id;
 
     // check exist question
-    const existQuestion = await Question.findById(id);
+    const existQuestion = await Question.findById(id).populate("owner tags answers");;
     if (!existQuestion) {
         res.status(400);
         throw new Error("Question not found");

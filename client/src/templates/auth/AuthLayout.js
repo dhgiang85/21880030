@@ -4,10 +4,10 @@ import Footer from "../../components/Footer";
 
 import { Outlet } from "react-router-dom";
 
-const AuthLayout = () => {
+const AuthLayout = ({ setSearchTerm, searchTerm }) => {
   return (
     <div className="min-h-screen flex flex-col justify-between pt-[48px]">
-      <Header />
+      <Header setSearchTerm={setSearchTerm} searchTerm={searchTerm} />
       <div className="bg-bgMain grow">
         <Outlet />
       </div>

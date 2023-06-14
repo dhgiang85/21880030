@@ -122,7 +122,7 @@ const Login = () => {
               </div>
 
               <div className="flex items-center justify-between mt-6 ">
-                <Link to="/reset_password_request" className="text-primary">
+                <Link to="/user/reset_password_request" className="text-primary">
                   Forgot your password?
                 </Link>
               </div>

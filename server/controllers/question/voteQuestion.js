@@ -9,7 +9,7 @@ const voteUpQuestion = asyncHandler(async (req, res) => {
   const { id } = req.params;
   const userId = req.user._id;
   // check exist question
-  const existQuestion = await Question.findById(id);
+  const existQuestion = await Question.findById(id).populate("owner tags answers");
   if (!existQuestion) {
     res.status(400);
     throw new Error("Question not found");
@@ -45,6 +45,7 @@ const voteUpQuestion = asyncHandler(async (req, res) => {
   }
   res.status(200).json({
     success: true,
+    message: "Question vote successfully",
     question: votedQuestion,
   });
 });

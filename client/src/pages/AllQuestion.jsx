@@ -11,7 +11,7 @@ import useDebounce from "../hooks/useDebounce";
 const AllQuestion = ({ searchTerm }) => {
   const dispatch = useDispatch();
 
-  const { message, isError } = useSelector((state) => state.loader);
+  const { message, isError, isLoading } = useSelector((state) => state.loader);
   const { questions, count, numberOfPages } = useSelector(
     (state) => state.question
   );
@@ -41,7 +41,7 @@ const AllQuestion = ({ searchTerm }) => {
       <div className="p-4 border-b max-w-4xl">
         <div className="flex items-center justify-between mb-4">
           <h2>All Questions</h2>
-          <Link to="/question/add" className="btn-primary text-sm">
+          <Link to="/question/add" className="btn-primary text-sm shrink-0">
             Ask Question
           </Link>
         </div>
@@ -63,29 +63,31 @@ const AllQuestion = ({ searchTerm }) => {
       </div>
 
       {/* Question list */}
-      {questions.length > 0 &&
+      {!isLoading &&
+        questions.length > 0 &&
         questions.map((question) => (
           <Question key={question._id} question={question} />
         ))}
-
-      <div className="w-full mt-4">
-        {count > 0 && (
-          <div className="pagination justify-center pb-2">
-            <ReactPaginate
-              breakLabel=".."
-              nextLabel=">"
-              onPageChange={(e) => {
-                handlePageClick(e);
-              }}
-              pageRangeDisplayed={2}
-              pageCount={numberOfPages}
-              previousLabel="<"
-              renderOnZeroPageCount={null}
-              activeLinkClassName="active-page"
-            />
-          </div>
-        )}
-      </div>
+      {!isLoading && (
+        <div className="w-full mt-4">
+          {count > 0 && (
+            <div className="pagination justify-center pb-2">
+              <ReactPaginate
+                breakLabel=".."
+                nextLabel=">"
+                onPageChange={(e) => {
+                  handlePageClick(e);
+                }}
+                pageRangeDisplayed={2}
+                pageCount={numberOfPages}
+                previousLabel="<"
+                renderOnZeroPageCount={null}
+                activeLinkClassName="active-page"
+              />
+            </div>
+          )}
+        </div>
+      )}
     </div>
   );
 };

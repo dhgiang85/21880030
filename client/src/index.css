@@ -73,7 +73,7 @@
     @apply text-red-500 text-xs italic pl-4 pt-1;
   }
   .input-box {
-    @apply w-full block border-gray-300 px-4 py-3 text-gray-600 text-sm rounded focus:ring-0 focus:border-primary placeholder-gray-400;
+    @apply w-full block border border-gray-400 px-4 py-3 text-gray-600 text-sm rounded focus:ring-0 focus:border-primary placeholder-gray-400;
   }
   .input-error {
     @apply text-red-500 text-xs italic pl-4 pt-1;
@@ -96,6 +96,9 @@
   }
   .pagination .active-page {
     @apply bg-secondary text-white cursor-auto;
+  }
+  .sublink-active{
+    @apply text-primary;
   }
 
 }

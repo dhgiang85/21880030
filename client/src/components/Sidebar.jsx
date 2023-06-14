@@ -1,25 +1,41 @@
 import React from "react";
+import { Link, NavLink, useLocation } from "react-router-dom";
 
 const Sidebar = () => {
+  const location = useLocation();
+
+  const isActiveLink = (keywords) => {
+    return keywords.some((keyword) => location.pathname.startsWith(keyword));
+  };
+
   return (
     <div className="w-44 max-height ">
       <ul className="flex flex-col items-center py-4">
         <li className="w-full ">
-          <a
-            href="/"
-            className="item-sidebar active"
+          <Link
+            exact
+            to="/"
+            className={
+              isActiveLink(["/", "/question"]) && !isActiveLink(["/tags"]) && !isActiveLink(["/users"])
+                ? "item-sidebar active"
+                : "item-sidebar"
+            }
           >
-           <i className="fa-solid fa-earth-americas"></i>
+            <i className="fa-solid fa-earth-americas"></i>
             <span className="text-sm">Questions</span>
-          </a>
+          </Link>
         </li>
         <li className="w-full ">
-          <a
-            href="/"
-            className="item-sidebar ml-6"
+          <Link
+            to="/tags"
+            className={
+              isActiveLink(["/tags"])
+                ? "item-sidebar active"
+                : "item-sidebar"
+            }
           >
-            <span className="text-sm ">Tags</span>
-          </a>
+            <span className="text-sm  ml-6">Tags</span>
+          </Link>
         </li>
       </ul>
     </div>

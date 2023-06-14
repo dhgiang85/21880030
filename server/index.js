@@ -13,7 +13,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 app.get("/api/v1/test", (req, res) => {
-  res.json({ Hi: "Welcome to the eVoucher App" });
+  res.json({ Hi: "Welcome to the Question App" });
 });
 
 // main router for app
@@ -21,11 +21,12 @@ import authRoutes from "./routes/authRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 import tagRoutes from "./routes/tagRoutes.js";
 import questionRoutes from "./routes/questionRoutes.js";
-
+import answerRoutes from "./routes/answerRoutes.js";
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/user", userRoutes);
 app.use("/api/v1/tag", tagRoutes);
 app.use("/api/v1/question", questionRoutes);
+app.use("/api/v1/answer", answerRoutes);
 // middleware for error handling and not found routes
 app.use(notFound);
 app.use(errorHandler);

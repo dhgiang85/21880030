@@ -20,6 +20,12 @@ const answerSchema = new Schema({
             ref: "User",
         }
     ],
+    bookmark: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: "User",
+        }
+    ],
     isAccepted: {
         type: Boolean,
         default: false,
@@ -41,6 +47,8 @@ const answerSchema = new Schema({
         default: 0,
     },
 
+},{
+    timestamps: true,
 });
 // middleware to update countVoteUp and countVoteDown
 answerSchema.pre("save", function (next) {
