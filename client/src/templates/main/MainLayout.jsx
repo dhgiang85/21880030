@@ -1,25 +1,15 @@
 import React from "react";
-import Header from "../../components/Header";
-import Footer from "../../components/Footer";
-import Sidebar from "../../components/Sidebar";
 import { Outlet } from "react-router-dom";
+import Sidebar from "../../components/Sidebar";
 
-const MainLayout = ({ setSearchTerm, searchTerm }) => {
+const MainLayout = () => {
   return (
-    <div className="min-h-screen flex flex-col justify-between pt-[48px]">
-      <Header setSearchTerm={setSearchTerm} searchTerm={searchTerm} />
-
-      <div className="container flex items-start flex-grow">
+    <div className="container flex items-start flex-grow ">
         <Sidebar />
-        <div className="flex-grow border-l border-neutral-400 h-full flex flex-col ">
-          <div className="flex-grow overflow-auto flex flex-col">
-            <Outlet />
-          </div>
+        <div className="flex-grow border-l border-neutral-400 flex flex-col max-w-4xl max-height">
+          <Outlet />
         </div>
       </div>
-
-      <Footer />
-    </div>
   );
 };
 

@@ -22,7 +22,7 @@ const loaderSlice = createSlice({
       state.isLoading = true;
       state.isSuccess = false;
       state.isError = false;
-      state.message = "";
+      state.message = "";    
     },
     setSucess: (state, action) => {
       state.isLoading = false;

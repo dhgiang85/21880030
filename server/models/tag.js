@@ -8,11 +8,11 @@ const tagSchema = new Schema({
         required: true,
         unique: true,
         trim: true,
-        validate: {
-            validator: function (value) {
-                return /^[A-z][A-z0-9-_]{3,23}$/.test(value);
-            }
-        }
+        // validate: {
+        //     validator: function (value) {
+        //         return /^[A-z][A-z0-9-_]{3,23}$/.test(value);
+        //     }
+        // }
     },
     description: {
         type: String,

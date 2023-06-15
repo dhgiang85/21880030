@@ -9,11 +9,12 @@ import {
 } from "../features/question/questionApiSlice";
 import SmallQuestion from "../components/SmallQuestion";
 import { Link } from "react-router-dom";
+import Spinner from "../components/Spinner";
 
 const YourQuestion = () => {
   const dispatch = useDispatch();
 
-  const { message, isError, isSuccess } = useSelector((state) => state.loader);
+  const { message, isError, isSuccess,isLoading } = useSelector((state) => state.loader);
   const { questions, count, numberOfPages } = useSelector(
     (state) => state.question
   );
@@ -42,14 +43,13 @@ const YourQuestion = () => {
 
   useEffect(() => {
     fetchQuestions();
-    dispatch(setIntial());
   }, [dispatch, currentPage]);
 
   useEffect(() => {
     if (message === "Delete question successfully") {
       fetchQuestions(); // Refresh questions after deleting
+      dispatch(setIntial());
     }
-    dispatch(setIntial());
   }, [message]);
   useEffect(() => {
     if (isSuccess) {
@@ -63,12 +63,12 @@ const YourQuestion = () => {
   useEffect(() => {
     if (isError) {
       toast.error(message);
+      dispatch(setIntial());
     }
-    dispatch(setIntial());
   }, [isError, message, dispatch]);
   return (
     <div className="h-full flex-grow">
-      <div className="border rounded-md max-w-3xl mx-auto">
+      <div className="border rounded-md max-w-3xl mx-auto relative min-h-[250px]">
         <div className="p-3 border-b flex items-center justify-between">
           <div>
             <h2>All Questions</h2>
@@ -91,6 +91,7 @@ const YourQuestion = () => {
             </div>
           )}
         </div>
+        {isLoading && <Spinner />}
         {questions &&
           questions.length > 0 &&
           questions.map((question) => (

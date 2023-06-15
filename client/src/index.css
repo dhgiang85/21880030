@@ -100,5 +100,8 @@
   .sublink-active{
     @apply text-primary;
   }
+  .max-height{
+    min-height: calc(100vh - 213px);
+  }
 
 }

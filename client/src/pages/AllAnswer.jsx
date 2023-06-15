@@ -4,13 +4,17 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import SmallAnswer from "../components/SmallAnswer";
-import { DELETE_ANSWER_API, GET_ALL_USER_ANSWER_API } from "../features/answer/answerApiSlice";
+import {
+  DELETE_ANSWER_API,
+  GET_ALL_USER_ANSWER_API,
+} from "../features/answer/answerApiSlice";
 import { setIntial } from "../features/loader/loaderSlice";
+import Spinner from "../components/Spinner";
 
 const AllAnswer = () => {
   const dispatch = useDispatch();
 
-  const { message, isError, isSuccess } = useSelector((state) => state.loader);
+  const { message, isError, isSuccess,isLoading } = useSelector((state) => state.loader);
   const { answers, count, numberOfPages } = useSelector(
     (state) => state.answer
   );
@@ -39,34 +43,30 @@ const AllAnswer = () => {
 
   useEffect(() => {
     fetchAnswers();
-    dispatch(setIntial());
   }, [dispatch, currentPage]);
 
   useEffect(() => {
     if (message === "Delete answer successfully") {
       fetchAnswers(); // Refresh questions after deleting
+      dispatch(setIntial());
     }
-    dispatch(setIntial());
   }, [message]);
   useEffect(() => {
     if (isSuccess) {
       toast.success(message);
       dispatch(setIntial());
     }
-    return () => {
-      dispatch(setIntial());
-    };
   }, [isSuccess, message, dispatch]);
   useEffect(() => {
     if (isError) {
       toast.error(message);
+      dispatch(setIntial());
     }
-    dispatch(setIntial());
   }, [isError, message, dispatch]);
-  console.log(answers);
+  
   return (
     <div className="h-full flex-grow">
-      <div className="border rounded-md max-w-3xl mx-auto">
+      <div className="border rounded-md max-w-3xl mx-auto min-h-[250px] relative">
         <div className="p-3 border-b flex items-center justify-between">
           <div>
             <h2>All Answers</h2>
@@ -89,11 +89,13 @@ const AllAnswer = () => {
             </div>
           )}
         </div>
-        {answers &&
+        {isLoading && <Spinner />}
+        {!isLoading &&
           answers.length > 0 &&
           answers.map((answer) => (
             <div className="border-b flex" key={answer._id}>
               <SmallAnswer answer={answer} question={answer?.question} />
+              
               {!answer?.isAccepted && (
                 <div className="w-24 shrink-0 flex items-center border-l p-4 justify-between">
                   <Link

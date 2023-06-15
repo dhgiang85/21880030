@@ -3,19 +3,20 @@ import rootSaga from "./rootSaga";
 import createSagaMiddleware from "redux-saga";
 import authReducer from "../features/auth/authSlice";
 import userReducer from "../features/user/userSlice";
-import loaderSlice from "../features/loader/loaderSlice";
-import tagSlice from "../features/tag/tagSlice";
-import questionSlice from "../features/question/questionSlice";
-import answerSlice from "../features/answer/answerSlice";
+import loaderReducer from "../features/loader/loaderSlice"; // Update import
+import tagReducer from "../features/tag/tagSlice"; // Update import
+import questionReducer from "../features/question/questionSlice";
+import answerReducer from "../features/answer/answerSlice";
+
 const sagaMiddleware = createSagaMiddleware();
 export const store = configureStore({
   reducer: {
     auth: authReducer,
     user: userReducer,
-    loader: loaderSlice,
-    tag: tagSlice,
-    question: questionSlice,
-    answer: answerSlice,
+    loader: loaderReducer, // Update reducer
+    tag: tagReducer, // Update reducer
+    question: questionReducer,
+    answer: answerReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(sagaMiddleware),

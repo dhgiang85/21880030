@@ -1,20 +1,19 @@
+import { Field, Form, Formik } from "formik";
 import React, { useEffect, useState } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
-import { Formik, Form, Field } from "formik";
 import "react-quill/dist/quill.snow.css";
-import SelectField from "../components/SelectField";
-import useTitle from "../hooks/useTitle";
 import { useDispatch, useSelector } from "react-redux";
-import { GET_ALL_TAG } from "../features/tag/tagApiSlice";
-import { POST_QUESTION_API } from "../features/question/questionApiSlice";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { setIntial } from "../features/loader/loaderSlice";
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-import { CKEditor } from "@ckeditor/ckeditor5-react";
 import * as Yup from "yup";
+import QuillField from "../components/QuillField";
+import SelectField from "../components/SelectField";
+import { setIntial } from "../features/loader/loaderSlice";
+import { POST_QUESTION_API } from "../features/question/questionApiSlice";
+import { GET_ALL_TAG } from "../features/tag/tagApiSlice";
+import useTitle from "../hooks/useTitle";
 
 const PostQuestion = () => {
-  useTitle("New | eVoucher");
+  useTitle("New | Question");
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -32,7 +31,9 @@ const PostQuestion = () => {
   const { tags } = useSelector((state) => state.tag);
   useEffect(() => {
     if (isSuccess) {
-      toast.success(message);
+      if (message) {
+        toast.success(message);
+      }
 
       if (isSummit) {
         navigate(`/`);
@@ -44,7 +45,9 @@ const PostQuestion = () => {
 
   useEffect(() => {
     if (isError) {
-      toast.error(message);
+      if (message) {
+        toast.error(message);
+      }
     }
     dispatch(setIntial());
   }, [isError, message, dispatch]);
@@ -88,7 +91,7 @@ const PostQuestion = () => {
         values,
         setFieldValue,
       }) => (
-        <form
+        <Form
           onSubmit={handleSubmit}
           autoComplete="off"
           className="p-4 border-b max-w-4xl relative"
@@ -128,22 +131,17 @@ const PostQuestion = () => {
               </p>
             )}
             <div>
-              <CKEditor
-                editor={ClassicEditor}
-                data={""}
+              <Field
                 name="content"
-                onReady={(editor) => {
-                  editor.ui.view.editable.element.style.height = "300px";
+                component={QuillField}
+                modules={{
+                  toolbar: [
+                    ["bold", "italic", "underline", "strike"],
+                    [{ list: "ordered" }, { list: "bullet" }],
+                    ["link", "image"],
+                  ],
                 }}
-                onBlur={() => {
-                  setFieldTouched("content", true, {
-                    shouldValidate: true,
-                  });
-                }}
-                onChange={(event, editor) => {
-                  const data = editor.getData();
-                  setFieldValue("content", data);
-                }}
+                p laceholder="Enter your content"
               />
             </div>
           </div>
@@ -157,7 +155,6 @@ const PostQuestion = () => {
 
           <div className="flex justify-end space-x-2 mt-4">
             <button
-              to="/campaigns"
               className="btn-secondary"
               onClick={() => navigate("/questions")}
             >
@@ -168,10 +165,10 @@ const PostQuestion = () => {
               disabled={isSubmitting}
               className="btn-primary"
             >
-              Lưu
+              Save
             </button>
           </div>
-        </form>
+        </Form>
       )}
     </Formik>
   );

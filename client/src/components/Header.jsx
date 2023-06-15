@@ -8,7 +8,7 @@ const Header = ({ setSearchTerm, searchTerm }) => {
     navigate("/");
   };
   return (
-    <header className="border-b fixed top-0 w-full z-50 bg-white flex items-center">
+    <header className="border-b fixed top-0 w-full z-[99] bg-white flex items-center">
       <div className="container">
         <nav className="flex justify-between items-center py-1 space-x-4">
           <div className="flex items-center">

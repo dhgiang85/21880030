@@ -3,7 +3,7 @@ import asyncHandler from "express-async-handler";
 
 const getQuestionById = asyncHandler(async (req, res) => {
   const { id } = req.params;
-  const userId = req?.user._id;
+  const userId = req?.user?._id || null;
   const question = await Question.findById(id).populate({
     path: "owner tags",
   });
@@ -12,7 +12,7 @@ const getQuestionById = asyncHandler(async (req, res) => {
     throw new Error("Question is not found");
   }
   // increase view number if not owner
-  if (question.owner._id.toString() !== userId.toString()) {
+  if (!userId || question.owner._id.toString() !== userId.toString()) {
     question.viewNumber += 1;
   }
   await question.save();

@@ -5,11 +5,14 @@ import TagService from "./tagService";
 
 function* getAllTagApi(action) {
   try {
-
+    yield put(setLoading());
+    
     const { data, status } = yield call(TagService.getAllTag, action.payload);
-    if (data.success) {
-      yield put(setTags(data));
 
+    if (data.success) {
+      yield put(setSucess(""));
+      yield put(setTags(data));
+   
     }
   } catch (error) {
     yield put(setError(error.response.data.message));

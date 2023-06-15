@@ -30,11 +30,11 @@ const ProfilePage = ({ user }) => {
           </p>
         </div>
         {/* edite profile */}
-        <div className="ml-auto">
+        {/* <div className="ml-auto">
           <button className="btn-secondary">
             <i className="fa-solid fa-pencil mr-2"></i>Edit Profile
           </button>
-        </div>
+        </div> */}
       </div>
       {/* action: answer/ question and saves */}
       <div className="flex items-center justify-between p-4 ">

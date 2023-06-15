@@ -7,16 +7,20 @@ import { toast } from "react-toastify";
 import { GET_ALL_QUESTION_API } from "../features/question/questionApiSlice";
 import ReactPaginate from "react-paginate";
 import useDebounce from "../hooks/useDebounce";
+import Spinner from "../components/Spinner";
 
 const AllQuestion = ({ searchTerm }) => {
   const dispatch = useDispatch();
 
-  const { message, isError, isLoading } = useSelector((state) => state.loader);
+  const { message, isError, isLoading, isSuccess } = useSelector(
+    (state) => state.loader
+  );
   const { questions, count, numberOfPages } = useSelector(
     (state) => state.question
   );
   const [currentPage, setCurrentPage] = useState(1);
   const debouncedSearchTerm = useDebounce(searchTerm, 500);
+
   useEffect(() => {
     dispatch({
       type: GET_ALL_QUESTION_API,
@@ -27,17 +31,27 @@ const AllQuestion = ({ searchTerm }) => {
       },
     });
   }, [dispatch, currentPage, debouncedSearchTerm]);
-  const handlePageClick = (e) => {
-    setCurrentPage(e.selected + 1);
-  };
+
+  useEffect(() => {
+    if (isSuccess) {
+      if (message) {
+        toast.success(message);
+      }
+      dispatch(setIntial());
+    }
+  }, [isSuccess, dispatch]);
+
   useEffect(() => {
     if (isError) {
       toast.error(message);
+      dispatch(setIntial());
     }
-    dispatch(setIntial());
   }, [isError, message, dispatch]);
+  const handlePageClick = (e) => {
+    setCurrentPage(e.selected + 1);
+  };
   return (
-    <div className="h-full flex-grow">
+    <div className="h-full flex-grow relative flex flex-col">
       <div className="p-4 border-b max-w-4xl">
         <div className="flex items-center justify-between mb-4">
           <h2>All Questions</h2>
@@ -46,7 +60,7 @@ const AllQuestion = ({ searchTerm }) => {
           </Link>
         </div>
 
-        <div className="flex items-center justify-between ">
+        {/* <div className="flex items-center justify-between ">
           <p>{count} questions</p>
           <div className="inline-flex" role="group">
             <button type="button" className="btn-filter">
@@ -59,35 +73,36 @@ const AllQuestion = ({ searchTerm }) => {
               Right
             </button>
           </div>
-        </div>
+        </div> */}
       </div>
 
       {/* Question list */}
-      {!isLoading &&
-        questions.length > 0 &&
-        questions.map((question) => (
-          <Question key={question._id} question={question} />
-        ))}
-      {!isLoading && (
-        <div className="w-full mt-4">
-          {count > 0 && (
-            <div className="pagination justify-center pb-2">
-              <ReactPaginate
-                breakLabel=".."
-                nextLabel=">"
-                onPageChange={(e) => {
-                  handlePageClick(e);
-                }}
-                pageRangeDisplayed={2}
-                pageCount={numberOfPages}
-                previousLabel="<"
-                renderOnZeroPageCount={null}
-                activeLinkClassName="active-page"
-              />
-            </div>
-          )}
-        </div>
-      )}
+      <div className="flex-grow">
+        {isLoading && <Spinner />}
+        {!isLoading &&
+          questions.length > 0 &&
+          questions.map((question) => (
+            <Question key={question._id} question={question} />
+          ))}
+      </div>
+      <div className="w-full max-w-4xl">
+        {count > 0 && (
+          <div className="pagination justify-center py-3 ">
+            <ReactPaginate
+              breakLabel=".."
+              nextLabel=">"
+              onPageChange={(e) => {
+                handlePageClick(e);
+              }}
+              pageRangeDisplayed={2}
+              pageCount={numberOfPages}
+              previousLabel="<"
+              renderOnZeroPageCount={null}
+              activeLinkClassName="active-page"
+            />
+          </div>
+        )}
+      </div>
     </div>
   );
 };

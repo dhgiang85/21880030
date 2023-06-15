@@ -1,19 +1,21 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import ReactPaginate from "react-paginate";
+import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
+import SmallQuestion from "../components/SmallQuestion";
 import { setIntial } from "../features/loader/loaderSlice";
 import {
   GET_ALL_MARKED_QUESTION_API,
   UNMARK_QUESTION_API,
 } from "../features/question/questionApiSlice";
-import SmallQuestion from "../components/SmallQuestion";
-import { Link } from "react-router-dom";
+import Spinner from "../components/Spinner";
 
 const AllSave = () => {
   const dispatch = useDispatch();
 
-  const { message, isError, isSuccess } = useSelector((state) => state.loader);
+  const { message, isError, isSuccess, isLoading } = useSelector(
+    (state) => state.loader
+  );
   const { questions, count, numberOfPages } = useSelector(
     (state) => state.question
   );
@@ -42,14 +44,13 @@ const AllSave = () => {
 
   useEffect(() => {
     fetchQuestions();
-    dispatch(setIntial());
   }, [dispatch, currentPage]);
 
   useEffect(() => {
     if (message === "Unmarked question successfully") {
-      fetchQuestions(); // Refresh questions after deleting
+      fetchQuestions();
+      dispatch(setIntial());
     }
-    dispatch(setIntial());
   }, [message]);
   useEffect(() => {
     if (isSuccess) {
@@ -63,12 +64,12 @@ const AllSave = () => {
   useEffect(() => {
     if (isError) {
       toast.error(message);
+      dispatch(setIntial());
     }
-    dispatch(setIntial());
   }, [isError, message, dispatch]);
   return (
     <div className="h-full flex-grow">
-      <div className="border rounded-md max-w-3xl mx-auto">
+      <div className="border rounded-md max-w-3xl mx-auto min-h-[250px] relative">
         <div className="p-3 border-b flex items-center justify-between">
           <div>
             <h2>All Questions</h2>
@@ -91,6 +92,7 @@ const AllSave = () => {
             </div>
           )}
         </div>
+        {isLoading && <Spinner />}
         {questions &&
           questions.length > 0 &&
           questions.map((question) => (

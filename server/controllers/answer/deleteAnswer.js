@@ -1,4 +1,5 @@
 import Answer from "../../models/answer.js";
+import Question from "../../models/question.js";
 import asyncHandler from "express-async-handler";
 
 // @desc    delete an answer
@@ -25,7 +26,12 @@ const deleteAnswer = asyncHandler(async (req, res) => {
         res.status(401);
         throw new Error("You are not owner of this answer");
     }
-
+    // remove answer from question
+    const question = await Question.findById(existAnswer.question);
+    question.answers = question.answers.filter(
+        (item) => item.toString() !== answerId.toString()
+    );
+    await question.save();
     // delete answer
     await Answer.findByIdAndDelete(answerId);
     res.status(200).json({

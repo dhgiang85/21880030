@@ -9,11 +9,11 @@ const Sidebar = () => {
   };
 
   return (
-    <div className="w-44 max-height ">
+    <div className="w-44 min-h-full">
       <ul className="flex flex-col items-center py-4">
         <li className="w-full ">
           <Link
-            exact
+            
             to="/"
             className={
               isActiveLink(["/", "/question"]) && !isActiveLink(["/tags"]) && !isActiveLink(["/users"])
@@ -34,7 +34,7 @@ const Sidebar = () => {
                 : "item-sidebar"
             }
           >
-            <span className="text-sm  ml-6">Tags</span>
+            <span className="text-sm ml-6">Tags</span>
           </Link>
         </li>
       </ul>

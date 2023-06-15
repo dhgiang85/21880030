@@ -22,7 +22,7 @@ function* createQuestion(action) {
       yield put(setError(data.message));
     }
   } catch (error) {
-    yield put(setError(error.response.data.message));
+    yield put(setError(error.response.data.message|| error.response.data));
   }
 }
 function* updatedQuestion(action) {
@@ -40,18 +40,18 @@ function* updatedQuestion(action) {
       yield put(setError(data.message));
     }
   } catch (error) {
-    yield put(setError(error.response.data.message));
+    yield put(setError(error.response.data.message|| error.response.data));
   }
 }
 function* getAllQuestion(action) {
   try {
     yield put(setLoading());
-    // yield put(clearQuestions());
+    yield put(clearQuestions());
     const { data, status } = yield call(
       QuestionService.getAllQuestion,
       action.payload
     );
-
+  
     if (data.success) {
       yield put(setSucess(data.message));
       yield put(setQuestions(data));
@@ -59,13 +59,13 @@ function* getAllQuestion(action) {
       yield put(setError(data.message));
     }
   } catch (error) {
-    yield put(setError(error.response.data.message));
+    yield put(setError(error.response.data.message|| error.response.data));
   }
 }
 function* getAllQuestionByUser(action) {
   try {
     yield put(setLoading());
-    // yield put(clearQuestions());
+    yield put(clearQuestions());
     const { data, status } = yield call(
       QuestionService.getAllQuestionByUser,
       action.payload
@@ -77,7 +77,7 @@ function* getAllQuestionByUser(action) {
       yield put(setError(data.message));
     }
   } catch (error) {
-    yield put(setError(error.response.data.message));
+    yield put(setError(error.response.data.message|| error.response.data));
   }
 }
 function* getQuestion(action) {
@@ -90,12 +90,14 @@ function* getQuestion(action) {
     );
 
     if (data.success) {
+    
       yield put(setCurrentQuestion(data.question));
+      yield put(setSucess(data.message));
     } else {
       yield put(setError(data.message));
     }
   } catch (error) {
-    yield put(setError(error.response.data.message)``);
+    yield put(setError(error.response.data.message|| error.response.data));
   }
 }
 function* deleteQuestion(action) {
@@ -112,7 +114,7 @@ function* deleteQuestion(action) {
       yield put(setError(data.message));
     }
   } catch (error) {
-    yield put(setError(error.response.data.message));
+    yield put(setError(error.response.data.message|| error.response.data));
   }
 }
 function* voteQuestion(action) {
@@ -122,7 +124,7 @@ function* voteQuestion(action) {
       QuestionService.voteQuestion,
       action.payload
     );
-    console.log(data);
+
     if (data.success) {
       yield put(setSucess(data.message));
       yield put(setCurrentQuestion(data.question));
@@ -130,7 +132,7 @@ function* voteQuestion(action) {
       yield put(setError(data.message));
     }
   } catch (error) {
-    yield put(setError(error.response.data.message));
+    yield put(setError(error.response.data.message|| error.response.data));
   }
 }
 function* markQuestion(action) {
@@ -154,7 +156,7 @@ function* markQuestion(action) {
 function* getAllMarkedQuestion(action) {
   try {
     yield put(setLoading());
-    // yield put(clearQuestions());
+    yield put(clearQuestions());
     const { data, status } = yield call(
       QuestionService.getAllMarkedQuestion,
       action.payload
@@ -167,7 +169,7 @@ function* getAllMarkedQuestion(action) {
       yield put(setError(data.message));
     }
   } catch (error) {
-    yield put(setError(error.response.data.message));
+    yield put(setError(error.response.data.message|| error.response.data));
   }
 }
 function* answerQuestion(action) {
@@ -187,7 +189,7 @@ function* answerQuestion(action) {
       yield put(setError(data.message));
     }
   } catch (error) {
-    yield put(setError(error.response.data.message));
+    yield put(setError(error.response.data.message|| error.response.data));
   }
 }
 function* unMarkQuestion(action) {
@@ -204,7 +206,7 @@ function* unMarkQuestion(action) {
       yield put(setError(data.message));
     }
   } catch (error) {
-    yield put(setError(error.response.data.message));
+    yield put(setError(error.response.data.message|| error.response.data));
   }
 }
 

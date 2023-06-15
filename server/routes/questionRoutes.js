@@ -22,7 +22,7 @@ router.get("/bookmark", checkAuth, getAllMarkedQuestion);
 
 router
   .route("/:id")
-  .get(checkAuth, getQuestionById)
+  .get(getQuestionById)
   .patch(checkAuth, updateQuestion)
   .delete(checkAuth, deleteQuestion);
 
