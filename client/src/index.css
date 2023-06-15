@@ -95,7 +95,7 @@
     @apply border-r-0;
   }
   .pagination .active-page {
-    @apply bg-secondary text-white cursor-auto;
+    @apply bg-primary text-white cursor-auto;
   }
   .sublink-active{
     @apply text-primary;

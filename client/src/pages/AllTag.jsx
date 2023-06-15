@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { GET_ALL_TAG } from "../features/tag/tagApiSlice";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { setIntial } from "../features/loader/loaderSlice";
 import ReactPaginate from "react-paginate";
@@ -13,18 +13,17 @@ export const AllTag = () => {
     (state) => state.loader
   );
   const { tags, count, numberOfPages } = useSelector((state) => state.tag);
-  
+
   const dispatch = useDispatch();
 
   const [currentPage, setCurrentPage] = useState(1);
 
-  const fecthData = () => {  
+  const fecthData = () => {
     dispatch({
       type: GET_ALL_TAG,
       payload: { pageNumber: currentPage, pageSize: 9, search: "" },
     });
   };
-
 
   useEffect(() => {
     fecthData();
@@ -37,7 +36,6 @@ export const AllTag = () => {
       }
       dispatch(setIntial());
     }
-   
   }, [isError, dispatch]);
 
   useEffect(() => {
@@ -47,7 +45,6 @@ export const AllTag = () => {
       }
       dispatch(setIntial());
     }
-   
   }, [isSuccess, dispatch]);
 
   const handlePageClick = (e) => {
@@ -63,14 +60,20 @@ export const AllTag = () => {
           others to find and answer your question.
         </p>
         <div className="">
-          {isLoading && (<Spinner />)}
+          {isLoading && <Spinner />}
           {!isLoading && tags.length > 0 && (
             <div className=" grid grid-cols-3 gap-5 pb-2">
               {tags.map((tag) => (
-                <div className="p-2 border rounded h-[150px] shadow-md" key={tag._id}>
-                  <span className="px-2 py-1 bg-neutral-200 rounded-sm text-primary text-sm hover:bg-neutral-600 hover:text-white transition-all duration-500 inline-block mb-4">
+                <div
+                  className="p-2 border rounded h-[150px] shadow-md"
+                  key={tag._id}
+                >
+                  <Link
+                    to={`../question/tag/${tag._id}`}
+                    className="px-2 py-1 bg-neutral-200 rounded-sm text-primary text-sm hover:bg-neutral-600 hover:text-white transition-all duration-500 inline-block mb-4"
+                  >
                     {tag.name}
-                  </span>
+                  </Link>
                   <p className="text-sm line-clamp-4 text-neutral-500">
                     {tag.description}
                   </p>

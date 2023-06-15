@@ -19,12 +19,11 @@ function* getAllAnswer(action) {
       yield put(setError(data.message));
     }
   } catch (error) {
-    yield put(setError(error.response.data.message|| error.response.data));
+    yield put(setError(error.response.data.message || error.response.data));
   }
 }
 export function* getAllAnswerByQuestion(action) {
   try {
-    yield put(setLoading());
     const { data, status } = yield call(
       AnswerService.getAllAnswerByQuestionId,
       action.payload
@@ -36,7 +35,7 @@ export function* getAllAnswerByQuestion(action) {
       yield put(setError(data.message));
     }
   } catch (error) {
-    yield put(setError(error.response.data.message|| error.response.data));
+    yield put(setError(error.response.data.message || error.response.data));
   }
 }
 
@@ -57,7 +56,7 @@ function* voteAnswer(action) {
       yield put(setError(data.message));
     }
   } catch (error) {
-    yield put(setError(error.response.data.message|| error.response.data));
+    yield put(setError(error.response.data.message || error.response.data));
   }
 }
 function* markAnswer(action) {
@@ -74,7 +73,7 @@ function* markAnswer(action) {
       yield put(setError(data.message));
     }
   } catch (error) {
-    yield put(setError(error.response.data.message|| error.response.data));
+    yield put(setError(error.response.data.message || error.response.data));
   }
 }
 function* acceptAnswer(action) {
@@ -95,7 +94,7 @@ function* acceptAnswer(action) {
     }
   } catch (error) {
     // console.log(error);
-    yield put(setError(error.response.data.message|| error.response.data));
+    yield put(setError(error.response.data.message || error.response.data));
   }
 }
 function* deleteAnswer(action) {
@@ -112,7 +111,7 @@ function* deleteAnswer(action) {
       yield put(setError(data.message));
     }
   } catch (error) {
-    yield put(setError(error.response.data.message|| error.response.data));
+    yield put(setError(error.response.data.message || error.response.data));
   }
 }
 function* updatedAnswer(action) {
@@ -130,18 +129,17 @@ function* updatedAnswer(action) {
       yield put(setError(data.message));
     }
   } catch (error) {
-    yield put(setError(error.response.data.message|| error.response.data));
+    yield put(setError(error.response.data.message || error.response.data));
   }
 }
 function* getAllAnswerByUser(action) {
   try {
     yield put(setLoading());
-    yield put(setAnswers({
-      answers: [],
-      count: 0,
-      numberOfPages: 0,
-      
-    }));
+    yield put(
+      setAnswers({
+        answers: [],
+      })
+    );
     const { data, status } = yield call(
       AnswerService.getAllAnswerByUser,
       action.payload
@@ -154,7 +152,7 @@ function* getAllAnswerByUser(action) {
       yield put(setError(data.message));
     }
   } catch (error) {
-    yield put(setError(error.response.data.message|| error.response.data));
+    yield put(setError(error.response.data.message || error.response.data));
   }
 }
 
@@ -173,7 +171,7 @@ function* getAnswer(action) {
       yield put(setError(data.message));
     }
   } catch (error) {
-    yield put(setError(error.response.data.message|| error.response.data));
+    yield put(setError(error.response.data.message || error.response.data));
   }
 }
 function* answerSaga() {

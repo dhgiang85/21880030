@@ -23,6 +23,7 @@ import AuthLayout from "./templates/auth/AuthLayout";
 import BaseLayout from "./templates/base/BaseLayout";
 import MainLayout from "./templates/main/MainLayout";
 import setAuthToken from "./utils/setAuthToken";
+import AllTagQuestion from "./pages/AllTagQuestion";
 function App() {
   const { user } = useSelector((state) => state.auth);
   const [searchTerm, setSearchTerm] = useState("");
@@ -45,7 +46,14 @@ function App() {
             <Route index element={<AllQuestion searchTerm={searchTerm} />} />
 
             <Route path="tags" element={<AllTag />} />
-
+            <Route
+              path="question/:id"
+              element={<DetailQuestion user={user} />}
+            />
+            <Route
+              path="question/tag/:tagId"
+              element={<AllTagQuestion user={user} />}
+            />
             <Route element={<AuthRequired allowedRoles={[ROLES.User]} />}>
               <Route
                 path="question/add"
@@ -61,10 +69,6 @@ function App() {
                 <Route path="saves" element={<AllSave user={user} />} />
               </Route>
             </Route>
-            <Route
-              path="question/:id"
-              element={<DetailQuestion user={user} />}
-            />
           </Route>
           <Route path="/user" element={<AuthLayout />}>
             <Route path="login" element={<Login />} />

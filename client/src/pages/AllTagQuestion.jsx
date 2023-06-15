@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from "react";
-import Question from "../components/Question";
-import { Link, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { setIntial } from "../features/loader/loaderSlice";
-import { toast } from "react-toastify";
-import { GET_ALL_QUESTION_API } from "../features/question/questionApiSlice";
 import ReactPaginate from "react-paginate";
-import useDebounce from "../hooks/useDebounce";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useParams } from "react-router-dom";
+import { toast } from "react-toastify";
+import Question from "../components/Question";
 import Spinner from "../components/Spinner";
+import { setIntial } from "../features/loader/loaderSlice";
+import { GET_ALL_TAG_QUESTION_API } from "../features/question/questionApiSlice";
+import { GET_TAG } from "../features/tag/tagApiSlice";
 
-const AllQuestion = ({ searchTerm }) => {
+const AllTagQuestion = () => {
   const dispatch = useDispatch();
+  const { tagId } = useParams();
 
   const { message, isError, isLoading, isSuccess } = useSelector(
     (state) => state.loader
@@ -18,25 +19,30 @@ const AllQuestion = ({ searchTerm }) => {
   const { questions, count, numberOfPages } = useSelector(
     (state) => state.question
   );
+  const { tag } = useSelector((state) => state.tag);
   const [currentPage, setCurrentPage] = useState(1);
-  const debouncedSearchTerm = useDebounce(searchTerm, 500);
-
+  console.log(tag);
   useEffect(() => {
     dispatch({
-      type: GET_ALL_QUESTION_API,
+      type: GET_ALL_TAG_QUESTION_API,
       payload: {
+        id: tagId,
         pageNumber: currentPage,
         pageSize: 10,
-        search: debouncedSearchTerm,
+        search: "",
       },
     });
-  }, [dispatch, currentPage, debouncedSearchTerm]);
-
+  }, [dispatch, currentPage, tagId]);
+  useEffect(() => {
+    dispatch({
+      type: GET_TAG,
+      payload: { id: tagId },
+    });
+  }, [dispatch, tagId]);
   useEffect(() => {
     if (isSuccess) {
       if (message) {
         toast.success(message);
-       
       }
       dispatch(setIntial());
     }
@@ -56,7 +62,7 @@ const AllQuestion = ({ searchTerm }) => {
       <div className="p-4 border-b max-w-4xl">
         <div className="flex items-center justify-between mb-4">
           <div>
-            <h2>All Questions</h2>
+            <h2>All Questions: {tag?.name}</h2>
             <p className="text-neutral-700 mt-2">{count} questions</p>
           </div>
           <Link to="/question/add" className="btn-primary text-sm shrink-0">
@@ -109,4 +115,4 @@ const AllQuestion = ({ searchTerm }) => {
   );
 };
 
-export default AllQuestion;
+export default AllTagQuestion;

@@ -49,7 +49,6 @@ const DetailQuestion = () => {
   useEffect(() => {
     if (isError) {
       toast.error(message);
-      console.log(message);
       dispatch(setIntial());
     }
   }, [isError, dispatch]);
@@ -217,7 +216,6 @@ const DetailQuestion = () => {
                   setStatus({ success: true });
                   setSubmitting(false);
                 }}
-              
               >
                 {({
                   errors,

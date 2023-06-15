@@ -16,24 +16,24 @@ const Question = ({ question }) => {
     isSolved,
   } = question;
   return (
-    <div className="flex p-4 border-b max-w-4xl">
-     
-        <div className="w-28 shrink-0 mr-4 ">
-          <div className="space-y-2 text-sm text-neutral-500 p-1 text-right">
-            <p>{voteDown.length + voteUp.length} votes</p>
-            <p
-              className={
-                answers.length > 0
-                  ? `border rounded border-green-800 text-green-800 p-1 inline-block ${isSolved ? "bg-green-800 text-white" : ""}`
-                  : ""
-              }
-            >
-              {answers.length} answers
-            </p>
-            <p>{viewNumber} views</p>
-          </div>
+    <div className="flex p-3 border-b max-w-4xl">
+      <div className="w-28 shrink-0 mr-4 ">
+        <div className="space-y-2 text-sm text-neutral-500 p-1 text-right">
+          <p>{voteDown.length + voteUp.length} votes</p>
+          <p
+            className={
+              answers.length > 0
+                ? `border rounded border-green-800 text-green-800 p-1 inline-block ${
+                    isSolved ? "bg-green-800 text-white" : ""
+                  }`
+                : ""
+            }
+          >
+            {answers.length} answers
+          </p>
+          <p>{viewNumber} views</p>
         </div>
-      
+      </div>
 
       <div className="flex-grow space-y-2">
         <Link
@@ -52,9 +52,12 @@ const Question = ({ question }) => {
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-2">
             {tags.map((tag) => (
-              <p className="px-2 py-1 bg-neutral-200 rounded-sm text-primary text-sm hover:bg-neutral-600 hover:text-white transition-all duration-500">
+              <Link
+                to={`/question/tag/${tag._id}`}
+                className="px-2 py-1 bg-neutral-200 rounded-sm text-primary text-sm hover:bg-neutral-600 hover:text-white transition-all duration-500"
+              >
                 {tag.name}
-              </p>
+              </Link>
             ))}
           </div>
           {/* user & timestamp */}
@@ -75,7 +78,6 @@ const Question = ({ question }) => {
             </Link>
             <p className="text-sm text-neutral-500">
               asked {moment(createdAt).fromNow()}
-              
             </p>
           </div>
         </div>

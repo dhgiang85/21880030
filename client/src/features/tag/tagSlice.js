@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
     tags: [],
+    tag:{},
     count: 0,
     numberOfPages: 0,
 }
@@ -15,6 +16,9 @@ const tagSlice = createSlice({
             state.count = action.payload.count;
             state.numberOfPages = action.payload.numberOfPages;
         },
+        setTag: (state, action) => {
+            state.tag = action.payload;
+        },
         clearTags: (state, action) => {
             state.tags = [];
             state.count = 0;
@@ -23,5 +27,5 @@ const tagSlice = createSlice({
     }
 });
 
-export const { setTags, clearTags } = tagSlice.actions;
+export const { setTags, clearTags,setTag } = tagSlice.actions;
 export default tagSlice.reducer;

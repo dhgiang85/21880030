@@ -72,7 +72,7 @@ const AllAnswer = () => {
             <h2>All Answers</h2>
             <p className="text-neutral-500">{count} items</p>
           </div>
-          {count > 0 && (
+   
             <div className="pagination justify-center ">
               <ReactPaginate
                 breakLabel=".."
@@ -87,7 +87,7 @@ const AllAnswer = () => {
                 activeLinkClassName="active-page"
               />
             </div>
-          )}
+ 
         </div>
         {isLoading && <Spinner />}
         {!isLoading &&

@@ -26,7 +26,7 @@ const ProfilePage = ({ user }) => {
           {/* date register use moment*/}
           <p className="text-sm text-neutral-400 mt-6">
             <i className="fa-solid fa-cake-candles fa-lg mr-2"></i> Member for
-            <span className="ml-2">{moment(user.createdAt).fromNow()}</span>
+            <span className="ml-1 text-neutral-700">{moment(user.createdAt).fromNow()}</span>
           </p>
         </div>
         {/* edite profile */}

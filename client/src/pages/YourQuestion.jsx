@@ -14,7 +14,9 @@ import Spinner from "../components/Spinner";
 const YourQuestion = () => {
   const dispatch = useDispatch();
 
-  const { message, isError, isSuccess,isLoading } = useSelector((state) => state.loader);
+  const { message, isError, isSuccess, isLoading } = useSelector(
+    (state) => state.loader
+  );
   const { questions, count, numberOfPages } = useSelector(
     (state) => state.question
   );
@@ -74,22 +76,21 @@ const YourQuestion = () => {
             <h2>All Questions</h2>
             <p className="text-neutral-500">{count} items</p>
           </div>
-          {count > 0 && (
-            <div className="pagination justify-center ">
-              <ReactPaginate
-                breakLabel=".."
-                nextLabel=">"
-                onPageChange={(e) => {
-                  handlePageClick(e);
-                }}
-                pageRangeDisplayed={2}
-                pageCount={numberOfPages}
-                previousLabel="<"
-                renderOnZeroPageCount={null}
-                activeLinkClassName="active-page"
-              />
-            </div>
-          )}
+
+          <div className="pagination justify-center ">
+            <ReactPaginate
+              breakLabel=".."
+              nextLabel=">"
+              onPageChange={(e) => {
+                handlePageClick(e);
+              }}
+              pageRangeDisplayed={2}
+              pageCount={numberOfPages}
+              previousLabel="<"
+              renderOnZeroPageCount={null}
+              activeLinkClassName="active-page"
+            />
+          </div>
         </div>
         {isLoading && <Spinner />}
         {questions &&

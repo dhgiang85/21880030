@@ -37,6 +37,11 @@ class questionService extends BaseService {
       `question/bookmark?pageSize=${pageSize}&pageNumber=${pageNumber}&search=${search}`
     );
   };
+  getAllQuestionByTag = ({ pageSize, pageNumber, id }) => {
+    return this.get(
+      `question/tag/${id}/?pageSize=${pageSize}&pageNumber=${pageNumber}`
+    );
+  };
   unMarkQuestion = ({ id }) => {
     return this.delete(`question/mark/${id}`);
   };

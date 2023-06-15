@@ -13,6 +13,7 @@ import getAllMarkedQuestion from "../controllers/question/getAllMarkedQuestion.j
 import deleteQuestion from "../controllers/question/deleteQuestion.js";
 import updateQuestion from "../controllers/question/updateQuestion.js";
 import unMarkQuestion from "../controllers/question/unMarkQuestion.js";
+import getAllQuestionByTag from "../controllers/question/getAllQuestionByTag.js";
 const router = express.Router();
 
 router.get("/all", getAllQuestion);
@@ -29,6 +30,7 @@ router
 router.get("/:id/answer", getAllAnswerByQuestion);
 
 router.patch("/vote/:id", checkAuth, voteQuestion);
+router.get("/tag/:tag", getAllQuestionByTag);
 router
   .route("/mark/:id")
   .get(checkAuth, bookmarkQuestion)

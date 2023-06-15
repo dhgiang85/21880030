@@ -15,14 +15,14 @@ function* createQuestion(action) {
     const { data, status } = yield call(
       QuestionService.postQuestion,
       action.payload
-    );;
+    );
     if (data.success) {
       yield put(setSucess(data.message));
     } else {
       yield put(setError(data.message));
     }
   } catch (error) {
-    yield put(setError(error.response.data.message|| error.response.data));
+    yield put(setError(error.response.data.message || error.response.data));
   }
 }
 function* updatedQuestion(action) {
@@ -40,7 +40,7 @@ function* updatedQuestion(action) {
       yield put(setError(data.message));
     }
   } catch (error) {
-    yield put(setError(error.response.data.message|| error.response.data));
+    yield put(setError(error.response.data.message || error.response.data));
   }
 }
 function* getAllQuestion(action) {
@@ -51,7 +51,7 @@ function* getAllQuestion(action) {
       QuestionService.getAllQuestion,
       action.payload
     );
-  
+
     if (data.success) {
       yield put(setSucess(data.message));
       yield put(setQuestions(data));
@@ -59,7 +59,7 @@ function* getAllQuestion(action) {
       yield put(setError(data.message));
     }
   } catch (error) {
-    yield put(setError(error.response.data.message|| error.response.data));
+    yield put(setError(error.response.data.message || error.response.data));
   }
 }
 function* getAllQuestionByUser(action) {
@@ -77,7 +77,7 @@ function* getAllQuestionByUser(action) {
       yield put(setError(data.message));
     }
   } catch (error) {
-    yield put(setError(error.response.data.message|| error.response.data));
+    yield put(setError(error.response.data.message || error.response.data));
   }
 }
 function* getQuestion(action) {
@@ -90,14 +90,13 @@ function* getQuestion(action) {
     );
 
     if (data.success) {
-    
       yield put(setCurrentQuestion(data.question));
       yield put(setSucess(data.message));
     } else {
       yield put(setError(data.message));
     }
   } catch (error) {
-    yield put(setError(error.response.data.message|| error.response.data));
+    yield put(setError(error.response.data.message || error.response.data));
   }
 }
 function* deleteQuestion(action) {
@@ -114,7 +113,7 @@ function* deleteQuestion(action) {
       yield put(setError(data.message));
     }
   } catch (error) {
-    yield put(setError(error.response.data.message|| error.response.data));
+    yield put(setError(error.response.data.message || error.response.data));
   }
 }
 function* voteQuestion(action) {
@@ -132,7 +131,7 @@ function* voteQuestion(action) {
       yield put(setError(data.message));
     }
   } catch (error) {
-    yield put(setError(error.response.data.message|| error.response.data));
+    yield put(setError(error.response.data.message || error.response.data));
   }
 }
 function* markQuestion(action) {
@@ -169,7 +168,7 @@ function* getAllMarkedQuestion(action) {
       yield put(setError(data.message));
     }
   } catch (error) {
-    yield put(setError(error.response.data.message|| error.response.data));
+    yield put(setError(error.response.data.message || error.response.data));
   }
 }
 function* answerQuestion(action) {
@@ -189,7 +188,7 @@ function* answerQuestion(action) {
       yield put(setError(data.message));
     }
   } catch (error) {
-    yield put(setError(error.response.data.message|| error.response.data));
+    yield put(setError(error.response.data.message || error.response.data));
   }
 }
 function* unMarkQuestion(action) {
@@ -206,10 +205,27 @@ function* unMarkQuestion(action) {
       yield put(setError(data.message));
     }
   } catch (error) {
-    yield put(setError(error.response.data.message|| error.response.data));
+    yield put(setError(error.response.data.message || error.response.data));
   }
 }
-
+function* getAllQuestionByTag(action) {
+  try {
+    yield put(setLoading());
+    yield put(clearQuestions());
+    const { data, status } = yield call(
+      QuestionService.getAllQuestionByTag,
+      action.payload
+    );
+    if (data.success) {
+      yield put(setSucess(data.message));
+      yield put(setQuestions(data));
+    } else {
+      yield put(setError(data.message));
+    }
+  } catch (error) {
+    yield put(setError(error.response.data.message || error.response.data));
+  }
+}
 function* questionSaga() {
   yield takeLatest(POST_QUESTION_API, createQuestion);
   yield takeLatest(GET_ALL_QUESTION_API, getAllQuestion);
@@ -220,6 +236,7 @@ function* questionSaga() {
   yield takeLatest(DELETE_QUESTION_API, deleteQuestion);
   yield takeLatest(UPDATE_QUESTION_API, updatedQuestion);
   yield takeLatest(GET_ALL_USER_QUESTION_API, getAllQuestionByUser);
+  yield takeLatest(GET_ALL_TAG_QUESTION_API, getAllQuestionByTag);
   yield takeLatest(GET_ALL_MARKED_QUESTION_API, getAllMarkedQuestion);
   yield takeLatest(UNMARK_QUESTION_API, unMarkQuestion);
 }
@@ -233,6 +250,7 @@ export const ANSWER_QUESTION_API = "ANSWER_QUESTION_API";
 export const DELETE_QUESTION_API = "DELETE_QUESTION_API";
 export const UPDATE_QUESTION_API = "UPDATE_QUESTION_API";
 export const GET_ALL_MARKED_QUESTION_API = "GET_ALL_MARKED_QUESTION_API";
+export const GET_ALL_TAG_QUESTION_API = "GET_ALL_TAG_QUESTION_API";
 export const UNMARK_QUESTION_API = "UNMARK_QUESTION_API";
 
 export default questionSaga;
