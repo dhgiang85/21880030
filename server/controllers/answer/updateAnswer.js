@@ -8,6 +8,8 @@ const updateAnswer = asyncHandler(async (req, res) => {
     const answerId = req.params.id;
     const userId = req.user._id;
     const { content } = req.body;
+    console.log(content);
+    const existAnswer = await Answer.findById(answerId);
     if (!existAnswer) {
         res.status(404);
         throw new Error("Answer not found");
@@ -35,7 +37,7 @@ const updateAnswer = asyncHandler(async (req, res) => {
     
     res.status(200).json({
         success: true,
-        message: "Delete answer successfully",
+        message: "Update answer successfully",
     });
 });
 

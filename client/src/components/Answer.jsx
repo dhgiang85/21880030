@@ -71,7 +71,7 @@ const Answer = ({ answer, flagAccept, isSolved }) => {
               >
                 <i className="fa-solid fa-sort-down fa-xl"></i>
               </div>
-              { !isSolved | isAccepted && (
+              {!isSolved | isAccepted && (
                 <div
                   className={`${
                     isAccepted
@@ -83,7 +83,6 @@ const Answer = ({ answer, flagAccept, isSolved }) => {
                   <i className="fa-solid fa-check fa-xl"></i>
                 </div>
               )}
-
             </div>
             {/* content */}
             <div className="flex-grow h-full flex flex-col justify-between">
@@ -95,17 +94,17 @@ const Answer = ({ answer, flagAccept, isSolved }) => {
               />
               <div className="flex-grow"></div>
               {/* more information */}
-              <div className="flex items-center justify-between text-sm">
+              <div className="flex items-center justify-between text-sm mt-2">
                 <div className="flex items-center justify-center text-neutral-400 space-x-3">
                   <p>
-                    Ask at
+                    Answered at
                     <span className="text-neutral-700 ml-2">
                       {moment(createdAt).fromNow()}
                     </span>
                   </p>
                   <p>
                     Modified at
-                    <span className="text-neutral-700 ml-2">                    
+                    <span className="text-neutral-700 ml-2">
                       {moment(updatedAt).fromNow()}
                     </span>
                   </p>

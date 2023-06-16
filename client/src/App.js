@@ -24,6 +24,7 @@ import BaseLayout from "./templates/base/BaseLayout";
 import MainLayout from "./templates/main/MainLayout";
 import setAuthToken from "./utils/setAuthToken";
 import AllTagQuestion from "./pages/AllTagQuestion";
+import EditAnswer from "./pages/EditAnswer";
 function App() {
   const { user } = useSelector((state) => state.auth);
   const [searchTerm, setSearchTerm] = useState("");
@@ -62,6 +63,10 @@ function App() {
               <Route
                 path="question/edit/:id"
                 element={<EditQuestion user={user} />}
+              />
+              <Route
+                path="answer/edit/:id"
+                element={<EditAnswer user={user} />}
               />
               <Route path="users/:id" element={<ProfilePage user={user} />}>
                 <Route index element={<YourQuestion user={user} />} />

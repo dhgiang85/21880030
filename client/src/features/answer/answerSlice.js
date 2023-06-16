@@ -16,6 +16,9 @@ const answerSlice = createSlice({
       state.count = action.payload?.count;
       state.numberOfPages = action.payload?.numberOfPages;
     },
+    setAnswer: (state, action) => {
+      state.answer = action.payload;
+    },
     clearAnswer: (state) => {
       state.answers = [];
       state.count = 0;
@@ -24,6 +27,6 @@ const answerSlice = createSlice({
   },
 });
 
-export const { setAnswers, clearAnswer } = answerSlice.actions;
+export const { setAnswers, clearAnswer, setAnswer } = answerSlice.actions;
 
 export default answerSlice.reducer;

@@ -1,7 +1,7 @@
 import { call, put, takeLatest } from "redux-saga/effects";
 import { setError, setLoading, setSucess } from "../loader/loaderSlice";
 import AnswerService from "./answerService";
-import { setAnswers, clearAnswer } from "./answerSlice";
+import { setAnswers, clearAnswer, setAnswer } from "./answerSlice";
 import { setCurrentQuestion } from "../question/questionSlice";
 
 function* getAllAnswer(action) {
@@ -119,7 +119,7 @@ function* updatedAnswer(action) {
     yield put(setLoading());
 
     const { data, status } = yield call(
-      AnswerService.updateQuestion,
+      AnswerService.updateAnswer,
       action.payload
     );
     if (data.success) {
@@ -129,6 +129,7 @@ function* updatedAnswer(action) {
       yield put(setError(data.message));
     }
   } catch (error) {
+    // console.log(error);
     yield put(setError(error.response.data.message || error.response.data));
   }
 }
@@ -159,14 +160,15 @@ function* getAllAnswerByUser(action) {
 function* getAnswer(action) {
   try {
     yield put(setLoading());
-    yield put(clearAnswer());
+    yield put(setAnswer({})); 
     const { data, status } = yield call(
       AnswerService.getAnswerById,
       action.payload
     );
-
+    console.log(data);
     if (data.success) {
-      yield put(setCurrentQuestion(data.question));
+      yield put(setSucess(data.message));
+      yield put(setAnswer(data.answer));
     } else {
       yield put(setError(data.message));
     }
